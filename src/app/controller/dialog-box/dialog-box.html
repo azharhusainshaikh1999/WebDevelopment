@@ -1,0 +1,9 @@
+<div class="modal-backdrop" *ngIf="visible"></div>
+
+<div class="modal" *ngIf="visible" role="dialog" aria-modal="true">
+  <h2>{{ title }}</h2>
+  <p>{{ message }}</p>
+  
+  <button (click)="close(true)">Confirm</button>
+  <button (click)="close(false)">Cancel</button>
+</div>

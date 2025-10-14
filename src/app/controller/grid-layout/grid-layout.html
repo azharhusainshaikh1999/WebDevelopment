@@ -1,0 +1,43 @@
+<p>
+    <strong>Custom Grid Layout</strong>
+</p>
+<table class="table table-bordered" style="table-layout: fixed; width: 100%;">
+    <thead>
+        <tr>
+            <th *ngFor="let col of columns" [style.width]="col.width ? col.width : 'auto'" (click)="sort(col.field)">
+                {{ col.header }}
+                <span *ngIf="sortField === col.field">
+                    {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                </span>
+                <span class="resizer" (mousedown)="startResize($event, col)"></span>
+            </th>
+        </tr>
+    </thead>
+        <tbody>
+                <tr *ngFor="let row of pagedData">
+                        <td *ngFor="let col of columns">{{ row[col.field] }}</td>
+                </tr>
+        </tbody>
+</table>
+{{ pagedData | json }}
+
+<!-- footer / pagination -->
+<div class="grid-footer" style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
+    <div class="entries-info">
+        Showing {{ startIndex }} - {{ endIndex }} of {{ totalEntries }} entries
+    </div>
+
+    <div class="pagination-controls" style="display:flex; gap:8px; align-items:center;">
+        <button (click)="prevPage()" [disabled]="currentPage <= 1">Previous</button>
+        <span>Page {{ currentPage }} / {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
+    </div>
+
+    <div class="page-size" style="display:flex; gap:8px; align-items:center;">
+        <label>Entries per page:</label>
+        <span>{{ pageSize }}</span>
+        <select [value]="pageSize" (change)="setPageSize($any($event.target).value)">
+            <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+        </select>
+    </div>
+</div>

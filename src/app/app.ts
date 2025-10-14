@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { GridLayout } from './controller/grid-layout/grid-layout';
 import { ProductPage } from "./product-page/product-page";
 import { UsersPage } from "./users-page/users-page";
 

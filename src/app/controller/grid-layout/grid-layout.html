@@ -1,6 +1,4 @@
-<p>
-    <strong>Custom Grid Layout</strong>
-</p>
+<p>Custom Grid Layout</p>
 <table class="table table-bordered" style="table-layout: fixed; width: 100%;">
     <thead>
         <tr>
@@ -19,7 +17,7 @@
                 </tr>
         </tbody>
 </table>
-{{ pagedData | json }}
+<!-- {{ pagedData | json }} -->
 
 <!-- footer / pagination -->
 <div class="grid-footer" style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
@@ -35,7 +33,7 @@
 
     <div class="page-size" style="display:flex; gap:8px; align-items:center;">
         <label>Entries per page:</label>
-        <span>{{ pageSize }}</span>
+        <!-- <span>{{ pageSize }}</span> -->
         <select [value]="pageSize" (change)="setPageSize($any($event.target).value)">
             <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
         </select>

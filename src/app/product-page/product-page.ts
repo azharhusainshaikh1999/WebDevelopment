@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GridLayout } from '../controller/grid-layout/grid-layout';
 import { DialogBox } from "../controller/dialog-box/dialog-box";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-page',
@@ -9,14 +10,41 @@ import { DialogBox } from "../controller/dialog-box/dialog-box";
   styleUrl: './product-page.css'
 })
 export class ProductPage {
+
   showDialog: boolean = false;
+  pendingDelete: any = null;
+  // dialog title/message binders
+  dialogTitle: string = 'Product DialogBox';
+  dialogMessage: string = 'Are you sure you want to proceed?';
+
   handleDialogResult(result: boolean) {
     this.showDialog = false;
     if (result) {
       console.log('User clicked Confirm');
+      if (this.pendingDelete) {
+        const idx = this.myData.indexOf(this.pendingDelete);
+        if (idx >= 0) this.myData.splice(idx, 1);
+        this.pendingDelete = null;
+      }
     } else {
       console.log('User clicked Cancel');
     }
+    // reset dialog title/message back to defaults
+    this.dialogTitle = 'Product DialogBox';
+    this.dialogMessage = 'Are you sure you want to proceed?';
+  }
+  // row pending deletion (used to confirm delete)
+  
+
+  onEdit(row: any) {
+    console.log('Edit clicked for', row);
+  }
+
+  onDelete(row: any) {
+    this.pendingDelete = row;
+    this.showDialog = true;
+    this.dialogTitle = 'Delete Product';
+    this.dialogMessage = 'Are you sure you want to Delete the Product?';
   }
   
 myColumns = [

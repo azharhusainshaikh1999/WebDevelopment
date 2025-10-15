@@ -13,7 +13,13 @@
     </thead>
         <tbody>
                 <tr *ngFor="let row of pagedData">
-                        <td *ngFor="let col of columns">{{ row[col.field] }}</td>
+                        <td *ngFor="let col of columns">
+                                <ng-container *ngIf="col.field === 'action'; else normalCell">
+                                        <button class="icon-btn" title="Edit" (click)="onEditRow(row)">✎</button>
+                                        <button class="icon-btn" title="Delete" (click)="onDeleteRow(row)">🗑️</button>
+                                </ng-container>
+                                <ng-template #normalCell>{{ row[col.field] }}</ng-template>
+                        </td>
                 </tr>
         </tbody>
 </table>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export interface Column {
   field: string;
@@ -34,6 +34,10 @@ export class GridLayout {
   totalEntries = 0;
   // current page slice shown in the table
   pagedData: any[] = [];
+
+  // Emitters for action column buttons
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
 
   ngOnChanges() {
     // re-create sortedData from the input data whenever inputs change
@@ -187,5 +191,14 @@ export class GridLayout {
     const size = typeof this.pageSize === 'string' ? parseInt(this.pageSize as any, 10) : this.pageSize;
     const numericSize = (size && size > 0) ? size : 10;
     return Math.min(this.currentPage * numericSize, this.totalEntries);
+  }
+
+  // Called from template when action buttons are clicked
+  onEditRow(row: any) {
+    this.edit.emit(row);
+  }
+
+  onDeleteRow(row: any) {
+    this.delete.emit(row);
   }
 }

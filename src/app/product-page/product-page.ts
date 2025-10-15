@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
 import { GridLayout } from '../controller/grid-layout/grid-layout';
+import { DialogBox } from "../controller/dialog-box/dialog-box";
 
 @Component({
   selector: 'app-product-page',
-  imports: [GridLayout],
+  imports: [GridLayout, DialogBox],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css'
 })
 export class ProductPage {
+  showDialog: boolean = false;
+  handleDialogResult(result: boolean) {
+    this.showDialog = false;
+    if (result) {
+      console.log('User clicked Confirm');
+    } else {
+      console.log('User clicked Cancel');
+    }
+  }
+  
 myColumns = [
   { field: 'id', header: 'ID', width: '' },
   { field: 'name', header: 'Name', width: '' },

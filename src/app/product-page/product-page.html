@@ -1,2 +1,10 @@
 <h2>Product table</h2>
 <app-grid-layout [columns]="myColumns" [data]="myData"></app-grid-layout>
+<app-dialog-box 
+    [visible]="showDialog" 
+    [title]="'Product DialogBox'" 
+    [message]="'Are you sure you want to proceed?'"
+    (closed)="handleDialogResult($event)">
+</app-dialog-box>
+
+<button (click)="showDialog = true">Open Dialog</button>

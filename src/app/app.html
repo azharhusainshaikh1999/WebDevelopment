@@ -1,8 +1,23 @@
-<div class="main">
-    <h1>Custom Grid Layout</h1>
-    <div class="container">
-        <app-product-page></app-product-page>
-        <app-users-page></app-users-page>
-    </div>
-    
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Custom Components Project</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="company-page">Company </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="product-page">Product Page</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="user-page">Users Page</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li> -->
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>

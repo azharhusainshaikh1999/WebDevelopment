@@ -1,10 +1,35 @@
-<h2>Product table</h2>
-<app-grid-layout [columns]="myColumns" [data]="myData" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-grid-layout>
-<app-dialog-box 
-    [visible]="showDialog" 
-    [title]="dialogTitle" 
-    [message]="dialogMessage"
-    (closed)="handleDialogResult($event)">
-</app-dialog-box>
+<div class="main">
+    <div class="container">
+        <h2>Product table</h2>
+        <app-grid-layout [columns]="myColumns" [data]="myData" (edit)="onEdit($event)"
+            (delete)="onDelete($event)"></app-grid-layout>
+        <app-dialog-box [visible]="showDialog" [title]="dialogTitle" [message]="dialogMessage"
+            (closed)="handleDialogResult($event)">
+        </app-dialog-box>
 
-<button (click)="showDialog = true">Open Dialog</button>
+        <button (click)="showDialog = true">Open Dialog</button>
+        <br><br>
+        <form [formGroup]="Productform" (ngSubmit)="onSubmit()">
+            <app-input-fields formControlName="ProductName" label="Product Name"
+            placeholder="Enter product name"></app-input-fields>
+        <div *ngIf="ProductName?.invalid && (ProductName?.dirty || ProductName?.touched)" class="text-danger">
+            <div *ngIf="ProductName?.errors?.['required']">Product Name is required.</div>
+            <div *ngIf="ProductName?.errors?.['minlength']">Minimum length is 2.</div>
+        </div>
+        <app-input-fields formControlName="ProductPrice" type="number" label="Product Price"
+            placeholder="Enter product price"></app-input-fields>
+        <div *ngIf="ProductPrice?.invalid && (ProductPrice?.dirty || ProductPrice?.touched)" class="text-danger">
+            <div *ngIf="ProductPrice?.errors?.['required']">Product Price is required.</div>
+            <div *ngIf="ProductPrice?.errors?.['min']">Minimum value is 0.</div>
+        </div>
+        <app-input-fields formControlName="ProductQuantity" type="number" label="Product Quantity"
+            placeholder="Enter product quantity"></app-input-fields>
+        <div *ngIf="ProductQuantity?.invalid && (ProductQuantity?.dirty || ProductQuantity?.touched)" class="text-danger">
+            <div *ngIf="ProductQuantity?.errors?.['required']">Product Quantity is required.</div>
+            <div *ngIf="ProductQuantity?.errors?.['min']">Minimum value is 0.</div>
+        </div>          
+        <button type="submit" [disabled]="Productform.invalid" class="btn btn-primary mt-2">Submit</button>
+        </form>
+    </div>
+
+</div>

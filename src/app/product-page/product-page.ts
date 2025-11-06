@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { GridLayout } from '../controller/grid-layout/grid-layout';
 import { DialogBox } from "../controller/dialog-box/dialog-box";
-import { Title } from '@angular/platform-browser';
+import { InputFields } from '../controller/input-fields/input-fields';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',
-  imports: [GridLayout, DialogBox],
+  imports: [GridLayout, DialogBox, InputFields, FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css'
 })
@@ -16,6 +20,26 @@ export class ProductPage {
   // dialog title/message binders
   dialogTitle: string = 'Product DialogBox';
   dialogMessage: string = 'Are you sure you want to proceed?';
+
+  Productform = new FormGroup({
+    ProductName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    ProductDescription: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    ProductPrice: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    ProductQuantity: new FormControl('', [Validators.required, Validators.minLength(1)])
+  });
+
+  get ProductName() { return this.Productform.get('ProductName'); }
+  get ProductDescription() { return this.Productform.get('ProductDescription'); }
+  get ProductPrice() { return this.Productform.get('ProductPrice'); }
+  get ProductQuantity() { return this.Productform.get('ProductQuantity'); }
+
+  onSubmit() {
+    if (this.Productform.valid) {
+      alert('Form Submitted: ' + JSON.stringify(this.Productform.value));
+    } else {
+      alert('Form Invalid');
+    }
+  }
 
   handleDialogResult(result: boolean) {
     this.showDialog = false;
@@ -85,4 +109,15 @@ myData = [
   { id: 19, name: 'Product S', price: 200, category: 'Electronics', stock: 35, rating: 4.0, supplier: 'Supplier X', warranty: '2 years', discount: '10%', releaseDate: '2023-07-05', description: 'Cutting-edge electronic product.', status: 'Available', action: 'Edit' },
   { id: 20, name: 'Product T', price: 210, category: 'Electronics', stock: 45, rating: 4.7, supplier: 'Supplier Y', warranty: '1 year', discount: '5%', releaseDate: '2023-08-01', description: 'High-performance electronic product.', status: 'Available', action: 'Edit' }
 ];
+
+  myForm = new FormGroup({
+  phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]),
+  fullName: new FormControl('', [Validators.required, Validators.minLength(3)])
+});
+
+submitForm(){
+  alert("Submitted");
 }
+}
+
+

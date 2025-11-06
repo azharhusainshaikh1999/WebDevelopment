@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CustomGridProj": {
+    "CustomComponentsProj": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CustomGridProj:build:production"
+              "buildTarget": "CustomComponentsProj:build:production"
             },
             "development": {
-              "buildTarget": "CustomGridProj:build:development"
+              "buildTarget": "CustomComponentsProj:build:development"
             }
           },
           "defaultConfiguration": "development"

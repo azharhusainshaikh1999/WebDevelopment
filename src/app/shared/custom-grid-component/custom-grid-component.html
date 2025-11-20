@@ -1,0 +1,44 @@
+<table class="table table-bordered table-hover table-striped" style="table-layout: fixed; width: 100%;">
+    <thead class="table-dark">
+        <tr>
+            <th *ngFor="let col of columns" [style.width]="col.width ? col.width : 'auto'" (click)="sort(col.field)">
+                {{ col.header }}
+                <span *ngIf="sortField === col.field">
+                    {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                </span>
+                <span class="resizer" (mousedown)="startResize($event, col)"></span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of pagedData">
+            <td *ngFor="let col of columns">
+                <ng-container *ngIf="col.field === 'action'; else normalCell">
+                    <button class="btn btn-sm btn-outline-primary me-2" title="Edit" (click)="onEditRow(row)">✎</button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete" (click)="onDeleteRow(row)">🗑️</button>
+                </ng-container>
+                <ng-template #normalCell>{{ row[col.field] }}</ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Pagination and footer remain unchanged but you can add Bootstrap classes if needed -->
+<div class="grid-footer d-flex justify-content-between align-items-center mt-3">
+    <div class="entries-info">
+        Showing {{ startIndex }} - {{ endIndex }} of {{ totalEntries }} entries
+    </div>
+
+    <div class="pagination-controls d-flex gap-2 align-items-center">
+        <button class="btn btn-outline-secondary btn-sm" (click)="prevPage()" [disabled]="currentPage <= 1">Previous</button>
+        <span>Page {{ currentPage }} / {{ totalPages }}</span>
+        <button class="btn btn-outline-secondary btn-sm" (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
+    </div>
+
+    <div class="page-size d-flex align-items-center gap-2">
+        <label for="pageSizeSelect" class="no-wrap" >Entries per page:</label>
+        <select id="pageSizeSelect" class="form-select form-select-sm" [value]="pageSize" (change)="setPageSize($any($event.target).value)">
+            <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+        </select>
+    </div>
+</div>

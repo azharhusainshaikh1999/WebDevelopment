@@ -1,0 +1,157 @@
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <div class="head row col-md-12">
+            <h3 class="col-md-10">Add Labour</h3>
+            <button type="button" class="col-md-2 btn btn-info mb-3" routerLink="get-service-list">
+                Get Labour List
+            </button>
+        </div>
+
+        <form [formGroup]="labourForm" (ngSubmit)="submitForm()">
+
+            <div class="row">
+
+                <div class="col-md-12 d-flex">
+                    <div class="left">
+                        <!-- Labour Name -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Labour Name</label>
+                            <input class="form-control" formControlName="labourNameControl" type="text">
+                            <div class="text-danger small"
+                                *ngIf="labourForm.get('labourNameControl')?.invalid && (labourForm.get('labourNameControl')?.touched || labourForm.get('labourNameControl')?.dirty)">
+                                Labour name is required.
+                            </div>
+                        </div>
+                        <!-- Skill -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Skill</label>
+                            <input class="form-control" formControlName="notRequiredControl" type="text">
+                        </div>
+
+                        <!-- Skill Level -->
+                        <div class="col-md-12 mb-5">
+                            <label class="form-label">Skill Level</label>
+                            <select class="form-select" formControlName="notRequiredControl">
+                                <option value="">Select Skill Level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Expert">Expert</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="right">
+                        <!-- Image -->
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="image-preview shadow rounded mb-2"
+                                [style.background-image]="previewUrl ? 'url(' + previewUrl + ')' : 'url(assets/male.png)'">
+                            </div>
+                            <div class="col-md-8">
+                                <input formControlName="notRequiredControl" #fileInput class="form-control mb-2"
+                                    type="file" (change)="onFileSelected($event)" accept="image/*" />
+                                <p [style.color]="labourForm.get('imageControl')?.invalid && labourForm.get('imageControl')?.touched ? 'red' : 'gray'"
+                                    *ngIf="!labourForm.get('imageControl')?.valid || !labourForm.get('imageControl')?.touched || labourForm.get('imageControl')?.value === null">
+                                    Only jpg, jpeg, png, svg type images can be uploaded
+                                </p>
+                            </div>
+                            @if (previewUrl)
+                            {
+                            <button class="btn btn-danger mt-2" (click)="removeImage(fileInput)">Remove Image</button>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- State -->
+                <div class="col-md-6 mb-3">
+                    <label>State</label>
+                    <select formControlName="requiredControl" class="form-control" (change)="onStateChange($event)">
+                        <option value="">Select State</option>
+                        <option *ngFor="let state of states" [value]="state.isoCode">{{ state.name }}</option>
+                    </select>
+                    <div class="text-danger small"
+                        *ngIf="(labourForm.get('stateControl')?.invalid || labourForm.get('requiredControl')?.invalid) && (labourForm.get('stateControl')?.touched || labourForm.get('requiredControl')?.touched)">
+                        State is required.
+                    </div>
+                </div>
+
+                <!-- City -->
+                <div class="col-md-6 mb-3">
+                    <label>City</label>
+                    <select formControlName="requiredControl" class="form-select">
+                        <option value="">Select City</option>
+                        <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+                    </select>
+                    <div class="text-danger small"
+                        *ngIf="(labourForm.get('cityControl')?.invalid || labourForm.get('requiredControl')?.invalid) && (labourForm.get('cityControl')?.touched || labourForm.get('requiredControl')?.touched)">
+                        City is required.
+                    </div>
+                </div>
+
+                <!-- Contact Number -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Contact Number</label>
+                    <input class="form-control" formControlName="requiredControl" type="text">
+                    <div class="text-danger small"
+                        *ngIf="labourForm.get('requiredControl')?.invalid && (labourForm.get('requiredControl')?.touched || labourForm.get('requiredControl')?.dirty)">
+                        Contact number is required.
+                    </div>
+                </div>
+
+                <!-- Aadhar -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Aadhar Number</label>
+                    <input class="form-control" formControlName="notRequiredControl" type="number">
+                </div>
+
+                <!-- Daily Rate -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Daily Rate</label>
+                    <input class="form-control" formControlName="notRequiredControl" type="number">
+                </div>
+
+                <!-- Contractor Reference -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Contractor Reference</label>
+                    <input class="form-control" formControlName="notRequiredControl" type="text">
+                </div>
+
+                <!-- Performance Rating -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Performance Rating</label>
+                    <select class="form-select" formControlName="notRequiredControl">
+                        <option value="">Select Rating</option>
+                        <option value="1 Star">1 Star</option>
+                        <option value="2 Star">2 Star</option>
+                        <option value="3 Star">3 Star</option>
+                        <option value="4 Star">4 Star</option>
+                        <option value="5 Star">5 Star</option>
+                    </select>
+                </div>
+
+                <!-- Availability -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Is Available</label><br>
+                    <input type="radio" formControlName="notRequiredControl" [value]="true"> Yes
+                    <input class="ms-3" type="radio" formControlName="notRequiredControl" [value]="false"> No
+                </div>
+
+                <!-- Certificate -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Certificate</label>
+                    <input formControlName="notRequiredControl" class="form-control" type="file"
+                        (change)="onCertSelect($event)">
+                    <!-- <div class="text-danger small"
+                         *ngIf="(labourForm.get('certControl')?.invalid || labourForm.get('notRequiredControl')?.invalid) && (labourForm.get('certControl')?.touched || labourForm.get('notRequiredControl')?.touched)">
+                        Certificate is required.
+                    </div> -->
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary mx-auto d-block w-50 mt-3" type="submit">Submit</button>
+
+        </form>
+    </div>
+</div>

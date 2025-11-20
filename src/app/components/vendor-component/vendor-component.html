@@ -1,0 +1,115 @@
+<div class="container mt-4">
+    <div class="card shadow p-4">
+
+        <div class="head row col-md-12">
+            <h3 class="col-md-10">Add Vendor</h3>
+            <button type="button" class="col-md-2 btn btn-info mb-3" routerLink="get-vendor-list">
+                Get Vendor List
+            </button>
+        </div>
+
+        <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label for="vendorName">Vendor Name *</label>
+                    <input id="vendorName" formControlName="vendorName" type="text" class="form-control" />
+                    <div *ngIf="vendorForm.get('vendorName')?.invalid && vendorForm.get('vendorName')?.touched"
+                        class="text-danger small">
+                        Vendor Name is required.
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="email">Email *</label>
+                    <input id="email" formControlName="email" type="email" class="form-control" />
+                    <div *ngIf="vendorForm.get('email')?.invalid && vendorForm.get('email')?.touched"
+                        class="text-danger small">
+                        <div *ngIf="vendorForm.get('email')?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="vendorForm.get('email')?.errors?.['email']">Email must be valid.</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="specialization">Specialization</label>
+                    <input id="specialization" formControlName="specialization" type="text" class="form-control" />
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+                    <label for="state">State</label>
+                    <select formControlName="state" class="form-control" (change)="onStateChange($event)">
+                        <option value="">Select State</option>
+                        <option *ngFor="let state of states" [value]="state.isoCode">{{ state.name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="city">City</label>
+                    <select formControlName="city" class="form-select">
+                        <option value="">Select City</option>
+                        <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+                    </select>
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+                    <label for="contactNumber">Contact Number</label>
+                    <input id="contactNumber" formControlName="contactNumber" type="text" class="form-control" />
+                    <div *ngIf="vendorForm.get('contactNumber')?.invalid && vendorForm.get('contactNumber')?.touched"
+                        class="text-danger small">
+                        Contact Number must be 10 digits.
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="gstNo">GST Number</label>
+                    <input id="gstNo" formControlName="gstNo" type="text" class="form-control" />
+                    <div *ngIf="vendorForm.get('gstNo')?.invalid && vendorForm.get('gstNo')?.touched"
+                        class="text-danger small">
+                        GST Number must be 15 digits.
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="ifsc">IFSC</label>
+                    <input id="ifsc" formControlName="ifsc" type="text" class="form-control" />
+                    <div *ngIf="vendorForm.get('ifsc')?.invalid && vendorForm.get('ifsc')?.touched"
+                        class="text-danger small">
+                        IFSC must follow valid format.
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="accountNo">Account Number</label>
+                    <input id="accountNo" formControlName="accountNo" type="text" class="form-control" />
+                    <div *ngIf="vendorForm.get('accountNo')?.invalid && vendorForm.get('accountNo')?.touched"
+                        class="text-danger small">
+                        Account Number must be between 9 and 18 digits.
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="creditTerms">Credit Terms</label>
+                    <input id="creditTerms" formControlName="creditTerms" type="text" class="form-control" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="qualityRating">Quality Rating</label>
+                    <input id="qualityRating" formControlName="qualityRating" type="text" class="form-control" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="projectsCompleted">Projects Completed</label>
+                    <input id="projectsCompleted" formControlName="projectsCompleted" type="text"
+                        class="form-control" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="remarks">Remarks</label>
+                    <textarea id="remarks" formControlName="remarks" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block w-50 mt-3">Submit</button>
+        </form>
+    </div>
+</div>
